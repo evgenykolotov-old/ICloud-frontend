@@ -5,7 +5,8 @@ import { AppRoutingModule } from './infrastructure/routes/app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxsModule } from "@ngxs/store";
 import { APP_STATES } from "./infrastructure/store";
-import { ComponentsModule } from "./infrastructure/components/components.module";
+import { NavbarModule } from './modules/navbar/navbar.module';
+import { RegistrationModule } from './modules/registration/registration.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ComponentsModule } from "./infrastructure/components/components.module"
     BrowserModule,
     AppRoutingModule,
     NgxsModule.forRoot(APP_STATES),
-    ComponentsModule,
+    NavbarModule,
+    RegistrationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
