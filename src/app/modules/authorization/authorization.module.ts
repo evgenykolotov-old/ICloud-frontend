@@ -1,22 +1,20 @@
 import { NgModule } from "@angular/core";
-import { RegistrationComponent } from "./registration.component";
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { FormsModule } from "@angular/forms";
+import { AuthorizationComponent } from "./authorization.component";
 
 @NgModule({
     declarations: [
-        RegistrationComponent,
+        AuthorizationComponent,
     ],
     imports: [
         CardModule,
         InputTextModule,
         ButtonModule,
-        FormsModule,
     ],
     exports: [
-        RegistrationComponent,
+        AuthorizationComponent,
     ],
 })
-export class RegistrationModule { }
+export class AuthorizationModule { }

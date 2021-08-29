@@ -4,16 +4,37 @@
             <h2>Регистрация</h2>
         </ng-template>
 
-        <span class="p-float-label p-input-icon-left">
-            <i class="pi pi-user"></i>
-            <input id="email-field" type="text" pInputText> 
-            <label for="email-field">Email</label>
-        </span>
-        <span class="p-float-label p-input-icon-left">
-            <i class="pi pi-lock"></i>
-            <input id="pass-field" type="text" pInputText> 
-            <label for="pass-field">Password</label>
-        </span>
+        <div class="p-field">
+            <span class="p-float-label p-input-icon-left">
+                <i class="pi pi-user"></i>
+                <input 
+                    pInputText 
+                    type="text" 
+                    id="email-field" 
+                    [(ngModel)]="email"
+                    aria-describedby="email-help"
+                    class="ng-invalid ng-dirty"
+                >
+                <label for="email-field">Email</label>
+            </span>
+            <small id="email-help" class="p-error">Введите валидный email.</small>
+        </div>
+
+        <div class="p-field">
+            <span class="p-float-label p-input-icon-left">
+                <i class="pi pi-lock"></i>
+                <input 
+                    pInputText 
+                    id="pass-field" 
+                    type="password" 
+                    [(ngModel)]="password"
+                    aria-describedby="pass-help"
+                    class="ng-invalid ng-dirty"
+                > 
+                <label for="pass-field">Password</label>
+            </span>
+            <small id="pass-help" class="p-error">Введите пароль.</small>
+        </div>
         
         <ng-template pTemplate="footer">
             <p-button label="Зарегистрироваться"></p-button>
