@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
-import { State } from "@ngxs/store";
+import { Action, State, StateContext } from "@ngxs/store";
+import { UserService } from "../../services/user.service";
+import {AuthorizationUser, RegistrationUser } from "./user.actions";
 
 export interface UserStateModel {
   currentUser: any;
@@ -15,4 +17,24 @@ export const userInitialState: UserStateModel = {
   defaults: userInitialState
 })
 @Injectable()
-export class UserState {}
+export class UserState {
+  constructor(
+    private userService: UserService,
+  ) { }
+
+  @Action(RegistrationUser)
+  public registrationUser(
+    context: StateContext<UserStateModel>,
+    { payload }: RegistrationUser,
+  ) {
+    return this.userService.registration(payload);
+  }
+
+  @Action(AuthorizationUser)
+  public authorizationUser(
+    context: StateContext<UserStateModel>,
+    { payload }: AuthorizationUser,
+  ) {
+    return this.userService.authorization(payload);
+  }
+}

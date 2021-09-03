@@ -8,6 +8,7 @@ import { APP_STATES } from "./infrastructure/store";
 import { NavbarModule } from './modules/navbar/navbar.module';
 import { RegistrationModule } from './modules/registration/registration.module';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuthorizationModule } from './modules/authorization/authorization.modul
     NavbarModule,
     RegistrationModule,
     AuthorizationModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,5 @@
 <div class="registration">
+  <form [formGroup]="registrationForm" (submit)="registration()">
     <p-card>
         <ng-template pTemplate="header">
             <h2>Регистрация</h2>
@@ -7,37 +8,22 @@
         <div class="p-field">
             <span class="p-float-label p-input-icon-left">
                 <i class="pi pi-user"></i>
-                <input 
-                    pInputText 
-                    type="text" 
-                    id="email-field" 
-                    [(ngModel)]="email"
-                    aria-describedby="email-help"
-                    class="ng-invalid ng-dirty"
-                >
+                <input pInputText type="text" id="email-field" formControlName="email">
                 <label for="email-field">Email</label>
             </span>
-            <small id="email-help" class="p-error">Введите валидный email.</small>
         </div>
 
         <div class="p-field">
             <span class="p-float-label p-input-icon-left">
                 <i class="pi pi-lock"></i>
-                <input 
-                    pInputText 
-                    id="pass-field" 
-                    type="password" 
-                    [(ngModel)]="password"
-                    aria-describedby="pass-help"
-                    class="ng-invalid ng-dirty"
-                > 
+                <input pInputText id="pass-field" type="password" formControlName="password">
                 <label for="pass-field">Password</label>
             </span>
-            <small id="pass-help" class="p-error">Введите пароль.</small>
         </div>
-        
+
         <ng-template pTemplate="footer">
-            <p-button label="Зарегистрироваться"></p-button>
+            <p-button label="Зарегистрироваться" type="submit"></p-button>
         </ng-template>
     </p-card>
+  </form>
 </div>

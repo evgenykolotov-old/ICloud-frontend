@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://185.251.89.26:5000",
+    "secure": false,
+    "changeOrigin": true,
+    "headers": {}
+  }
+}

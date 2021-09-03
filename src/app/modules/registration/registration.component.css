@@ -3,13 +3,13 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    padding-top: 150px;
+    padding-top: 10%;
 }
 
 :host ::ng-deep .p-card {
     min-width: 450px;
     padding: 20px;
-    box-shadow: 
+    box-shadow:
         1px 1px 15px -5px rgba(70, 48, 48, 0.3),
         -1px -1px 15px -5px rgba(70, 48, 48, 0.3);
 }
