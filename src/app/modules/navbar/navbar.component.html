@@ -1,0 +1,18 @@
+<p-menubar [model]="[]">
+    <div class="navbar">
+        <div class="navbar-actions">
+            <p-button 
+                label="Вход"
+                class="navbar-actions__signin"
+                styleClass="p-button-outlined p-button-sm"
+                (onClick)="authorizationHandler()"
+            ></p-button>
+            <p-button 
+                label="Регистрация"
+                class="navbar-actions__signup"
+                styleClass="p-button-sm"
+                (onClick)="registrationHandler()"
+            ></p-button>
+        </div>
+    </div>
+</p-menubar>

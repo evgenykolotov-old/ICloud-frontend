@@ -1,0 +1,29 @@
+<div class="authorization">
+  <form [formGroup]="authorizationForm" (submit)="authorization()">
+    <p-card>
+        <ng-template pTemplate="header">
+            <h2>Авторизация</h2>
+        </ng-template>
+
+      <div class="p-field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-user"></i>
+            <input id="email-field" type="text" pInputText formControlName="email">
+            <label for="email-field">Email</label>
+        </span>
+      </div>
+
+      <div class="p-field">
+        <span class="p-float-label p-input-icon-left">
+            <i class="pi pi-lock"></i>
+            <input id="pass-field" type="password" pInputText formControlName="password">
+            <label for="pass-field">Password</label>
+        </span>
+      </div>
+
+        <ng-template pTemplate="footer">
+            <p-button label="Войти" type="submit"></p-button>
+        </ng-template>
+    </p-card>
+  </form>
+</div>
