@@ -1,27 +1,28 @@
 <p-menubar [model]="[]">
     <div class="navbar">
         <div class="navbar-actions">
-            <p-button
-                *ngIf="!(isAuth | async)"
-                label="Вход"
-                class="navbar-actions__signin"
-                styleClass="p-button-outlined p-button-sm"
-                (onClick)="authorizationHandler()"
-            ></p-button>
-            <p-button 
-                *ngIf="!(isAuth | async)"
-                label="Регистрация"
-                class="navbar-actions__signup"
-                styleClass="p-button-sm"
-                (onClick)="registrationHandler()"
-            ></p-button>
-            <p-button 
-                *ngIf="isAuth | async"
-                label="Выйти"
-                class="navbar-actions__signup"
-                styleClass="p-button-outlined p-button-sm"
-                (onClick)="logoutHandler()"
-            ></p-button>
+            <ng-container *ngIf="!(isAuth | async); else auth">
+                <p-button
+                    label="Вход"
+                    class="navbar-actions__signin"
+                    styleClass="p-button-outlined p-button-sm"
+                    (onClick)="authorizationHandler()"
+                ></p-button>
+                <p-button
+                    label="Регистрация"
+                    class="navbar-actions__signup"
+                    styleClass="p-button-sm"
+                    (onClick)="registrationHandler()"
+                ></p-button>
+            </ng-container>
+            <ng-template #auth>
+                <p-button
+                    label="Выйти"
+                    class="navbar-actions__signup"
+                    styleClass="p-button-outlined p-button-sm"
+                    (onClick)="logoutHandler()"
+                ></p-button>
+            </ng-template>
         </div>
     </div>
 </p-menubar>

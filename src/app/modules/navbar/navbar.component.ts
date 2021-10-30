@@ -20,7 +20,7 @@ export class NavbarComponent {
     ) { }
 
     public authorizationHandler(): void {
-        this.router.navigate(['/', 'authorization']);
+        this.router.navigate(['/', 'login']);
     }
 
     public registrationHandler(): void {
@@ -28,7 +28,6 @@ export class NavbarComponent {
     }
 
     public logoutHandler(): void {
-        this.store.dispatch(new LogoutnUser())
-            .pipe(tap(() => void this.router.navigate(['/', 'authorization'])));
+        this.store.dispatch(new LogoutnUser());
     }
 }

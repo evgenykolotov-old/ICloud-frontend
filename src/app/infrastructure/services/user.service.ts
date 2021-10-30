@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {User, ResponseData } from '../types/types';
 import { UrlHelper } from '../helpers/UrlHelper';
-import { map, tap } from 'rxjs/operators';
 
 const REGISTRATION_API_PATH = UrlHelper.combineFragments(environment.apiPrefix, 'auth', 'registration');
-const AUTHORIZATION_API_PATH = UrlHelper.combineFragments(environment.apiPrefix, 'auth', 'login');
+const LOGIN_API_PATH = UrlHelper.combineFragments(environment.apiPrefix, 'auth', 'login');
+const AUTHORIZATION_API_PATH = UrlHelper.combineFragments(`${environment.apiPrefix}`, 'auth', 'auth');
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -19,7 +19,13 @@ export class UserService {
     return this.httpClient.post<ResponseData>(REGISTRATION_API_PATH, data);
   }
 
-  public authorization(data: Partial<User>): Observable<ResponseData> {
-    return this.httpClient.post<ResponseData>(AUTHORIZATION_API_PATH, data);
+  public login(data: Partial<User>): Observable<ResponseData> {
+    return this.httpClient.post<ResponseData>(LOGIN_API_PATH, data);
+  }
+
+  public authorization(token: string): Observable<ResponseData> {
+    const headers = new HttpHeaders().set('authorization', `Bearer ${token}`);
+
+    return this.httpClient.post<ResponseData>(AUTHORIZATION_API_PATH, null, { headers });
   }
 }

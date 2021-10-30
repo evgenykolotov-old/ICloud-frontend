@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import {FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngxs/store";
-import { AuthorizationUser } from "src/app/infrastructure/store/user-state/user.actions";
+import { LoginUser } from "src/app/infrastructure/store/user-state/user.actions";
 import { User } from "src/app/infrastructure/types/types";
 
 @Component({
@@ -20,7 +20,7 @@ export class AuthorizationComponent {
   ) { }
 
   public authorization(): void {
-    this.store.dispatch(new AuthorizationUser(this.getAuthorizationData()));
+    this.store.dispatch(new LoginUser(this.getAuthorizationData()));
   }
 
   private getAuthorizationData(): Partial<User> {

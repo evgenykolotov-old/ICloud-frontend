@@ -5,21 +5,25 @@ export class RegistrationUser {
   constructor(public readonly payload: Partial<User>) { }
 }
 
-export class AuthorizationUser {
-  public static readonly type = '[User State] Authorization'
+export class LoginUser {
+  public static readonly type = '[User State] Login'
   constructor(public readonly payload: Partial<User>) { }
 }
 
-export class AuthorizationUserSuccess {
-  public static readonly type = '[User State] Authorization Success';
+export class LoginUserSuccess {
+  public static readonly type = '[User State] Login Success';
   constructor(public readonly payload: AuthorizationResponseData) { }
 }
 
-export class AuthorizationUserFail {
-  public static readonly type = '[User State] Authorization Fail';
+export class LoginUserFail {
+  public static readonly type = '[User State] Login Fail';
   constructor(public readonly errorMessage: string) { }
 }
 
 export class LogoutnUser {
   public static readonly type = '[User State] Logout';
+}
+
+export class AuthorizationUser {
+  public static readonly type = '[User State] Authorization';
 }

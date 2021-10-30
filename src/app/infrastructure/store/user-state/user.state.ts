@@ -1,11 +1,12 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
+import { Router } from "@angular/router";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { patch } from "@ngxs/store/operators";
 import { asapScheduler, throwError } from "rxjs";
 import { catchError, map, tap } from 'rxjs/operators';
 import { UserService } from "../../services/user.service";
 import { ResponseData, User } from "../../types/types";
-import {AuthorizationUser, AuthorizationUserFail, AuthorizationUserSuccess, LogoutnUser, RegistrationUser } from "./user.actions";
+import {AuthorizationUser, LoginUser, LoginUserFail, LoginUserSuccess, LogoutnUser, RegistrationUser } from "./user.actions";
 
 export interface UserStateModel {
   currentUser: User | null;
@@ -25,7 +26,9 @@ export const userInitialState: UserStateModel = {
 @Injectable()
 export class UserState {
   constructor(
-    private userService: UserService,
+    private readonly router: Router,
+    private readonly zone: NgZone,
+    private readonly userService: UserService,
   ) { }
 
   @Selector()
@@ -41,29 +44,31 @@ export class UserState {
     return this.userService.registration(payload);
   }
 
-  @Action(AuthorizationUser)
-  public authorizationUser(
+  @Action(LoginUser)
+  public loginnUser(
     { dispatch }: StateContext<UserStateModel>,
-    { payload }: AuthorizationUser,
+    { payload }: LoginUser,
   ) {
-    return this.userService.authorization(payload).pipe(
+    return this.userService.login(payload).pipe(
       tap(
         (response: ResponseData) => response.status === 'success'
         ? asapScheduler.schedule(() => 
-          dispatch(new AuthorizationUserSuccess({user: response.payload as User, token: response.token as string })))
+          dispatch(new LoginUserSuccess({user: response.payload as User, token: response.token as string })))
         : throwError(response.message),
       ),
-      catchError((errorMessage: string) => dispatch(asapScheduler.schedule(() => new AuthorizationUserFail(errorMessage))))
+      catchError((errorMessage: string) => dispatch(asapScheduler.schedule(() => new LoginUserFail(errorMessage))))
     )
   }
 
-  @Action(AuthorizationUserSuccess)
-  public authorizationUserSuccess(
+  @Action(LoginUserSuccess)
+  public loginUserSuccess(
     { setState }: StateContext<UserStateModel>,
-    { payload: { user, token } }: AuthorizationUserSuccess,
+    { payload: { user, token } }: LoginUserSuccess,
   ) {
     setState(patch<UserStateModel>({ currentUser: user, token, isAuth: true }));
     window.localStorage.setItem('token', token);
+
+    return this.zone.run(() => void this.router.navigate(['/']));
   }
 
   @Action(LogoutnUser)
@@ -72,5 +77,26 @@ export class UserState {
   ) {
     setState(patch<UserStateModel>({ currentUser: null, token: null, isAuth: false }));
     window.localStorage.removeItem('token');
+
+    return this.zone.run(() => void this.router.navigate(['/', 'login']));
+  }
+
+  @Action(AuthorizationUser)
+  public authorizationUser(
+    { dispatch }: StateContext<UserStateModel>
+  ) {
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      return this.userService.authorization(token).pipe(
+        tap(
+          (response: ResponseData) => response.status === 'success'
+          ? asapScheduler.schedule(() => 
+            dispatch(new LoginUserSuccess({user: response.payload as User, token: response.token as string })))
+          : throwError(response.message),
+        ),
+        catchError((errorMessage: string) => dispatch(asapScheduler.schedule(() => new LoginUserFail(errorMessage))))
+      );
+    }
+    return this.zone.run(() => void this.router.navigate(['/', 'login']));
   }
 }
