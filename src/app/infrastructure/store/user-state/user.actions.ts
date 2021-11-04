@@ -1,12 +1,12 @@
 import { AuthorizationResponseData, User } from "../../types/types";
 
 export class RegistrationUser {
-  public static readonly type = '[User State] Registration'
+  public static readonly type = '[User State] Registration';
   constructor(public readonly payload: Partial<User>) { }
 }
 
 export class LoginUser {
-  public static readonly type = '[User State] Login'
+  public static readonly type = '[User State] Login';
   constructor(public readonly payload: Partial<User>) { }
 }
 

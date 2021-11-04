@@ -36,6 +36,16 @@ export class UserState {
     return state.isAuth;
   }
 
+  @Selector()
+  public static token(state: UserStateModel) {
+    return state.token;
+  }
+
+  @Selector()
+  public static currentUser(state: UserStateModel) {
+    return state.currentUser;
+  }
+
   @Action(RegistrationUser)
   public registrationUser(
     _: StateContext<UserStateModel>,
@@ -56,7 +66,7 @@ export class UserState {
           dispatch(new LoginUserSuccess({user: response.payload as User, token: response.token as string })))
         : throwError(response.message),
       ),
-      catchError((errorMessage: string) => dispatch(asapScheduler.schedule(() => new LoginUserFail(errorMessage))))
+      catchError((errorMessage: string) => dispatch(new LoginUserFail(errorMessage))),
     )
   }
 
@@ -67,8 +77,6 @@ export class UserState {
   ) {
     setState(patch<UserStateModel>({ currentUser: user, token, isAuth: true }));
     window.localStorage.setItem('token', token);
-
-    return this.zone.run(() => void this.router.navigate(['/']));
   }
 
   @Action(LogoutnUser)
@@ -94,7 +102,7 @@ export class UserState {
             dispatch(new LoginUserSuccess({user: response.payload as User, token: response.token as string })))
           : throwError(response.message),
         ),
-        catchError((errorMessage: string) => dispatch(asapScheduler.schedule(() => new LoginUserFail(errorMessage))))
+        catchError((errorMessage: string) => dispatch(new LoginUserFail(errorMessage))),
       );
     }
     return this.zone.run(() => void this.router.navigate(['/', 'login']));

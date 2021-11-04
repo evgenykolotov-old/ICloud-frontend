@@ -1,0 +1,38 @@
+<div class="files-list">
+  <div class="files-list__caption">
+    <p-button
+      label="Новая папка"
+      class="navbar-actions__signin"
+      styleClass="p-button-outlined p-button-sm"
+      (onClick)="openCreateDirectoryDialog()"
+    ></p-button>
+    <p-button
+      label="Загрузить"
+      class="navbar-actions__signin"
+      styleClass="p-button-outlined p-button-sm"
+    ></p-button>
+  </div>
+
+  <p-table
+    class="files-list__table"
+    styleClass="p-datatable-sm"
+    [columns]="columns"
+    [value]="files"
+    responsiveLayout="scroll"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let column of columns">
+          {{ column.header }}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-file let-columns="columns">
+      <tr>
+        <td *ngFor="let column of columns">
+          {{file[column.field]}}
+        </td>
+      </tr>
+    </ng-template> </p-table
+  >
+</div>

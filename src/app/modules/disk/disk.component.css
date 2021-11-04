@@ -1,0 +1,20 @@
+.files-list {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.files-list__caption {
+	display: flex;
+	justify-content: flex-end;
+	padding: 10px 0;
+}
+
+.files-list__table th,
+.files-list__table td {
+	background-color: #ffffff;
+	width: 200px !important;
+}
+
+:host ::ng-deep .files-list__caption .p-button {
+	margin-left: 10px;
+}
