@@ -1,0 +1,19 @@
+.dialog-content__field {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  margin-bottom: 20px;
+}
+
+.dialog-content .p-inputtext {
+  width: 100%;
+}
+
+.dialog-content__actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-content__actions .cancel {
+  margin-left: 10px !important;
+}

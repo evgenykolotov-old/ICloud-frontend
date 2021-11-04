@@ -11,6 +11,8 @@ import { AuthorizationModule } from './modules/authorization/authorization.modul
 import { HttpClientModule } from '@angular/common/http';
 import { asapScheduler } from 'rxjs';
 import { AuthorizationUser } from './infrastructure/store/user-state/user.actions';
+import { DiskModule } from './modules/disk/disk.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const initializeAppFactory = (store: Store) =>
   () => asapScheduler.schedule(() => store.dispatch(new AuthorizationUser()));
@@ -21,12 +23,14 @@ const initializeAppFactory = (store: Store) =>
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     NgxsModule.forRoot(APP_STATES),
     NavbarModule,
     RegistrationModule,
     AuthorizationModule,
     HttpClientModule,
+    DiskModule,
   ],
   providers: [{
     provide: APP_INITIALIZER,

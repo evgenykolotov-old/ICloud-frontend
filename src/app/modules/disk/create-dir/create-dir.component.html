@@ -1,0 +1,25 @@
+<form class="dialog-content" [formGroup]="form">
+  <div class="dialog-content__field">
+    <input 
+      type="text" 
+      pInputText 
+      class="p-inputtext-sm"
+      formControlName="directoryName"
+      placeholder="Введите название папки..."
+    >
+  </div>
+
+  <div class="dialog-content__actions">
+    <p-button
+      label="Создать"
+      styleClass="p-button-sm"
+      (onClick)="createDirectory()"
+    ></p-button>
+    <p-button
+      label="Отменить"
+      class="cancel"
+      styleClass="p-button-outlined p-button-sm"
+      (onClick)="ref.close()"
+    ></p-button>
+  </div>
+</form>

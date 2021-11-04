@@ -12,7 +12,7 @@ const AUTHORIZATION_API_PATH = UrlHelper.combineFragments(`${environment.apiPref
 @Injectable({ providedIn: 'root' })
 export class UserService {
   constructor(
-    private httpClient: HttpClient,
+    private readonly httpClient: HttpClient,
   ) { }
 
   public registration(data: Partial<User>): Observable<ResponseData> {
